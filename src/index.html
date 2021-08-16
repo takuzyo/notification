@@ -13,30 +13,32 @@
         </form>
         <ul id="msgList"></ul>
 
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script>
             const socket = io();
-            document.querySelector("#frm-post").addEventListener("submit", (e)=>{
+            $("#frm-post").submit((e)=>{
                 e.preventDefault();
 
-                const msg = document.querySelector("#msg");
-                if(msg.value === ""){
+                const msg = $("#msg");
+                if(msg.val() === ""){
                     return false;
                 }
 
-                socket.emit("post", {text: msg.value});
-                msg.value = "";
+                socket.emit("post", {text: msg.val()});
+                msg.val("");
             });
 
             socket.on("member-post", (msg)=>{
-                const list = document.querySelector("#msgList");
-                const li = document.createElement("li");
-                li.innerHTML = `${msg.text}`;
-                list.insertBefore(li, list.firstChild);
+                const list = $("#msgList");
+                const li = $("<li>");
+                li.html(msg.text);
+                list.prepend(li);
+                //list.insertBefore(li, list.firstChild);
             });
 
-            windows.onload = ()=>{
-                document.querySelector("#msg").focus();
+            window.onload = ()=>{
+                $("#msg").focus();
             }
         </script>
     </body>

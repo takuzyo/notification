@@ -1,11 +1,18 @@
 version: '3'
 services: 
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment: 
+      MYSQL_DATABASE: dbname
+      MYSQL_ROOT_PASSWORD: root
   node:
     build: .
     tty: true
     ports: 
       - 8080:80
-    environment: 
-      - NODE_ENV=production
     volumes: 
       - ./src:/home/node/app
+  
+
