@@ -2,5 +2,5 @@ FROM node
 
 WORKDIR /home/node/app
 
-COPY package*.json ./
+COPY src/package*.json ./
 RUN npm install
